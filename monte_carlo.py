@@ -13,6 +13,19 @@ def rollDice():
         print("Roll was ", roll, ", you WIN.", sep="")
         return True
 
+def simple_bettor(funds, initial_wager, wager_count):
+    value = funds
+    wager = initial_wager
 
+    current_wager = 0
 
-print(rollDice())
+    while current_wager < wager_count:
+        if rollDice():
+            value += wager
+        else:
+            value -= wager
+
+        current_wager += 1
+        print("Funds:", value)
+
+simple_bettor(100, 10, 50000)
