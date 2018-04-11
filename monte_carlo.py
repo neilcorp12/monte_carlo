@@ -1,4 +1,5 @@
 import random
+import numpy as np
 
 def rollDice():
     roll = random.randint(1, 100)
