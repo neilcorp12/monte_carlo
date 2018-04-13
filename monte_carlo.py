@@ -78,6 +78,7 @@ def doubler_bettor(funds, initial_wager, wager_count):
     # print(value)
     plt.plot(wX, vY)
 
+'''
 xx = 0
 broke_count = 0
 
@@ -89,9 +90,10 @@ print('Death rate:', (broke_count/float(xx)) * 100, "%")
 
 plt.axhline(0, color = 'r')
 plt.show()
-time.sleep(666)
+'''
 
 def simple_bettor(funds, initial_wager, wager_count):
+    global broke_count
     value = funds
     wager = initial_wager
 
@@ -114,14 +116,18 @@ def simple_bettor(funds, initial_wager, wager_count):
         current_wager += 1
     if value < 0:
         value = "broke"
+        broke_count += 1
     # print("Funds:", value)
 
     plt.plot(wX, vY)
-x = 0
 
-while x < 20:
-    simple_bettor(10000, 100, 100000)
+x = 0
+broke_count = 0
+while x < 1000:
+    simple_bettor(10000, 100, 1000)
     x += 1
+
+print('Death rate:', (broke_count/float(x)) * 100, "%")
 
 # Show the chart
 plt.ylabel('Account Value')
