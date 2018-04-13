@@ -4,6 +4,11 @@ import matplotlib
 import matplotlib.pyplot as plt
 import time
 
+sample_size = 1000
+starting_funds = 10000
+wager_size = 100
+wager_count = 10000
+
 def rollDice():
     roll = random.randint(1, 100)
 
@@ -76,21 +81,20 @@ def doubler_bettor(funds, initial_wager, wager_count):
                 vY.append(value)
         current_wager += 1
     # print(value)
-    plt.plot(wX, vY)
+    plt.plot(wX, vY, 'c')
 
-'''
 xx = 0
 broke_count = 0
 
 while xx < 100:
-    doubler_bettor(10000, 100, 1000)
+    doubler_bettor(starting_funds, wager_size, wager_count)
     xx += 1
 
-print('Death rate:', (broke_count/float(xx)) * 100, "%")
+# print('Death rate:', (broke_count/float(xx)) * 100, "%")
 
 plt.axhline(0, color = 'r')
-plt.show()
-'''
+# plt.show()
+
 
 def simple_bettor(funds, initial_wager, wager_count):
     global broke_count
@@ -119,15 +123,15 @@ def simple_bettor(funds, initial_wager, wager_count):
         broke_count += 1
     # print("Funds:", value)
 
-    plt.plot(wX, vY)
+    plt.plot(wX, vY, 'k')
 
 x = 0
 broke_count = 0
-while x < 1000:
-    simple_bettor(10000, 100, 1000)
+while x < sample_size:
+    simple_bettor(starting_funds, wager_size, wager_count)
     x += 1
 
-print('Death rate:', (broke_count/float(x)) * 100, "%")
+# print('Death rate:', (broke_count/float(x)) * 100, "%")
 
 # Show the chart
 plt.ylabel('Account Value')
