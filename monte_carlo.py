@@ -20,7 +20,7 @@ def rollDice():
 def doubler_bettor(funds, initial_wager, wager_count):
     value = funds
     wager = initial_wager
-
+    global broke_count
     wX = []
     vY = []
 
@@ -32,53 +32,63 @@ def doubler_bettor(funds, initial_wager, wager_count):
 
     while current_wager <= wager_count:
         if previous_wager == 'win':
-            print('We won the last wager')
+            # print('We won the last wager')
             if rollDice():
                 value += wager
-                print(value)
+                # print(value)
                 wX.append(current_wager)
                 vY.append(value)
             else:
                 value -= wager
                 previous_wager = 'loss'
-                print(value)
+                # print(value)
                 previous_wager_amount = wager
                 wX.append(current_wager)
                 vY.append(value)
 
                 if value < 0:
-                    print('we went broke after'.current_wager, 'bets')
+                    # print('we went broke after'.current_wager, 'bets')
+                    broke_count += 1
                     break
         elif previous_wager == 'loss':
-            print('Double the bet because we lost last time.')
+            # print('Double the bet because we lost last time.')
             if rollDice():
                 wager = previous_wager_amount * 2
-                print('We won', value)
+                # print('We won', value)
                 value += wager
-                print(value)
+                # print(value)
                 wager = initial_wager
                 previous_wager = 'win'
                 wX.append(current_wager)
                 vY.append(value)
             else:
                 wager = previous_wager_amount * 2
-                print("We lost wager", wager)
+                # print("We lost wager", wager)
                 value -= wager
                 if value < 0:
-                    print("We went broke after", current_wager,'bets')
+                    # print("We went broke after", current_wager,'bets')
+                    broke_count += 1
                     break
-                print(value)
+                # print(value)
                 previous_wager = 'loss'
                 previous_wager_amount = wager
                 wX.append(current_wager)
                 vY.append(value)
         current_wager += 1
-    print(value)
+    # print(value)
     plt.plot(wX, vY)
 
-doubler_bettor(10000, 100, 1000)
-plt.show()
+xx = 0
+broke_count = 0
 
+while xx < 100:
+    doubler_bettor(10000, 100, 1000)
+    xx += 1
+
+print('Death rate:', (broke_count/float(xx)) * 100, "%")
+
+plt.axhline(0, color = 'r')
+plt.show()
 time.sleep(666)
 
 def simple_bettor(funds, initial_wager, wager_count):
