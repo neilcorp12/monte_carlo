@@ -30,7 +30,7 @@ def multiple_bettor(funds, initial_wager, wager_count, colour='c'):
     wager = initial_wager
 
     wX = []
-    wY = []
+    vY = []
 
     current_wager  = 1
     previous_wager = 'win'
@@ -185,6 +185,24 @@ while True:
 
     while current_sample <= multiple_sample_size:
         multiple_bettor(starting_funds, wager_size, wager_count)
+        current_sample += 1
+
+    if ((multiple_busts/multiple_sample_size)*100 < lower_bust) and ((multiple_profits/multiple_sample_size)*100 > higher_profit):
+        print('############################')
+        print('Found a winner with the multiple', random_multiple)
+        print('Lower bust to beat:', lower_bust)
+        print('Higher profit rate to beat:', higher_profit)
+        print('Bust rate:', (multiple_busts/multiple_sample_size)*100.00)
+        print('Bust rate:', (multiple_profits/multiple_sample_size)*100.00)
+        print('############################')
+    else:
+        print('############################')
+        print('Found a loser with the multiple', random_multiple)
+        print('Lower bust to beat:', lower_bust)
+        print('Higher profit rate to beat:', higher_profit)
+        print('Bust rate:', (multiple_busts/multiple_sample_size)*100.00)
+        print('Bust rate:', (multiple_profits/multiple_sample_size)*100.00)
+        print('############################')
 
 
 # plt.axhline(0, color='r')
