@@ -4,10 +4,10 @@ import matplotlib
 import matplotlib.pyplot as plt
 import time
 
-sample_size = 100
+sample_size = 1000
 starting_funds = 10000
 wager_size = 100
-wager_count = 1000
+wager_count = 100
 
 def rollDice():
     roll = random.randint(1, 100)
@@ -101,11 +101,12 @@ def simple_bettor(funds, initial_wager, wager_count, colour='k'):
 
         current_wager += 1
     if value <= 0:
-        # value = "brok e"
+        value = 0
         simple_busts += 1
 
     plt.plot(wX, vY, colour)
     if value > funds:
+        value = 0
         simple_profits += 1
 
 x = 0
@@ -121,6 +122,8 @@ while x < sample_size:
 
 print("Simple bettor profit ratio:", (simple_profits/sample_size)*100.00)
 print("Doubler bettor profit ratio:", (doubler_profits/sample_size)*100.00)
+print("Simple bettor bust ratio:", (simple_busts/sample_size)*100.00)
+print("Doubler bettor bust ratio:", (doubler_busts/sample_size)*100.00)
 
 plt.axhline(0, color='r')
 plt.ylabel('Account Value')
