@@ -193,16 +193,19 @@ while True:
         print('Lower bust to beat:', lower_bust)
         print('Higher profit rate to beat:', higher_profit)
         print('Bust rate:', (multiple_busts/multiple_sample_size)*100.00)
-        print('Bust rate:', (multiple_profits/multiple_sample_size)*100.00)
+        print('Profit rate:', (multiple_profits/multiple_sample_size)*100.00)
         print('############################')
     else:
+        pass
+        '''
         print('############################')
         print('Found a loser with the multiple', random_multiple)
         print('Lower bust to beat:', lower_bust)
         print('Higher profit rate to beat:', higher_profit)
         print('Bust rate:', (multiple_busts/multiple_sample_size)*100.00)
-        print('Bust rate:', (multiple_profits/multiple_sample_size)*100.00)
+        print('Profit rate:', (multiple_profits/multiple_sample_size)*100.00)
         print('############################')
+        '''
 
 
 # plt.axhline(0, color='r')
