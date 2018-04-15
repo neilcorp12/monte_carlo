@@ -22,6 +22,54 @@ def rollDice():
     elif 100 > roll > 50:
         return True
 
+def dAlembert(funds, initial_wager, wager_count):
+    global da_profits
+    global da_busts
+    value = funds
+    wager = initial_wager
+    current_wager = 1
+    previous_wager = 'win'
+    previous_wager_amount = initial_wager
+
+    while current_wager <= wager_count:
+        if previous_wager == 'win':
+            if wager == initial_wager:
+                pass
+            else:
+                wager -= initial_wager
+
+            if rollDice():
+                value += wager
+                previous_wager = 'win'
+                previous_wager_amount = wager
+            else:
+                value -= wager
+                previous_wager = 'loss'
+                previous_wager_amount = wager
+                if value <= 0:
+                    da_busts += 1
+                    break
+        elif previous_wager == 'loss':
+            wager = previous_wager_amount + initial_wager
+            if (value - wager) <= 0:
+                wager = value
+            if rollDice():
+                value += wager
+                previous_wager = 'win'
+                previous_wager_amount = wager
+            else:
+                value -= wager
+                previous_wager = 'loss'
+                previous_wager_amount = wager
+                if value <= 0:
+                    da_busts += 1
+                    break
+        current_wager += 1
+    if value > funds:
+        da_profits += 1
+
+dAlembert(starting_funds, wager_size, wager_count)
+
 def multiple_bettor(funds, initial_wager, wager_count, colour='c'):
     global multiple_busts
     global multiple_profits
