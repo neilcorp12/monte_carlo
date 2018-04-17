@@ -10,8 +10,9 @@ higher_profit = 63.208
 sample_size = 1000
 starting_funds = 10000
 wager_size = 100
-wager_count = 100
+wager_count = 1000
 
+'''
 def rollDice():
     roll = random.randint(1, 100)
 
@@ -21,8 +22,18 @@ def rollDice():
         return False
     elif 100 > roll > 50:
         return True
+'''
+
+def rollDice():
+    roll = random.randint(1, 100)
+
+    if roll <= 50:
+        return True
+    elif roll >=51:
+        return False
 
 def dAlembert(funds, initial_wager, wager_count):
+    global profitability
     global da_profits
     global da_busts
     value = funds
@@ -67,8 +78,10 @@ def dAlembert(funds, initial_wager, wager_count):
         current_wager += 1
     if value > funds:
         da_profits += 1
+    # print(value)
+    profitability += value
 
-dAlembert(starting_funds, wager_size, wager_count)
+
 
 def multiple_bettor(funds, initial_wager, wager_count, colour='c'):
     global multiple_busts
@@ -222,41 +235,19 @@ def simple_bettor(funds, initial_wager, wager_count, colour='k'):
         value = 0
         simple_profits += 1
 
-while True:
-    multiple_profits  = 0.0
-    multiple_busts    = 0.0
-    multiple_sample_size = 1000
+profitability = 0.0
+da_profits    = 0
+da_busts      = 0
+da_sample_size = 10000
 
+counter = 1
 
-    current_sample = 1
-    random_multiple = random.uniform(0.1, 10.0)
+while counter <= da_sample_size:
+    dAlembert(starting_funds, wager_size, wager_count)
+    counter += 1
 
-    while current_sample <= multiple_sample_size:
-        multiple_bettor(starting_funds, wager_size, wager_count)
-        current_sample += 1
-
-    if ((multiple_busts/multiple_sample_size)*100 < lower_bust) and ((multiple_profits/multiple_sample_size)*100 > higher_profit):
-        print('############################')
-        print('Found a winner with the multiple', random_multiple)
-        print('Lower bust to beat:', lower_bust)
-        print('Higher profit rate to beat:', higher_profit)
-        print('Bust rate:', (multiple_busts/multiple_sample_size)*100.00)
-        print('Profit rate:', (multiple_profits/multiple_sample_size)*100.00)
-        print('############################')
-    else:
-        pass
-        '''
-        print('############################')
-        print('Found a loser with the multiple', random_multiple)
-        print('Lower bust to beat:', lower_bust)
-        print('Higher profit rate to beat:', higher_profit)
-        print('Bust rate:', (multiple_busts/multiple_sample_size)*100.00)
-        print('Profit rate:', (multiple_profits/multiple_sample_size)*100.00)
-        print('############################')
-        '''
-
-
-# plt.axhline(0, color='r')
-# plt.ylabel('Account Value')
-# plt.xlabel('Wage Count')
-# plt.show()
+print('Total invested', da_sample_size*starting_funds)
+print('Total return', profitability)
+print('ROI:', profitability - (da_sample_size*starting_funds))
+print('Bust rate:', (da_busts/da_sample_size)*100.00)
+print('Win rate:', (da_profits/da_sample_size)*100.00)
