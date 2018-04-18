@@ -253,8 +253,9 @@ while True:
     ROI = profitability - (da_sample_size*starting_funds)
     total_invested = da_sample_size*starting_funds
     percent_ROI = (ROI/total_invested)*100.00
+    wager_size_percentage = (wager_size/starting_funds)*100.00
 
-    if percent_ROI > 0.865:
+    if percent_ROI > 1:
         print('##########################################')
         print('Total invested', da_sample_size*starting_funds)
         print('ROI:', profitability - (da_sample_size*starting_funds))
@@ -264,4 +265,26 @@ while True:
         print('Win rate:', (da_profits/da_sample_size)*100.00)
         print('Wager size:', wager_size)
         print('Wager count', wager_count)
-        print('Wager size percentage:', (wager_size/starting_funds)*100.00)
+        print('Wager size percentage:', wager_size_percentage)
+
+        saveFile = open('monteCarloLiberal.csv', 'a')
+        saveLine = '\n'+str(percent_ROI)+',',str(wager_size_percentage)+','+str(wager_count)+',g'
+        saveFile.write(saveLine)
+        saveFile.close()
+
+    elif percent_ROI < -1:
+        print('##########################################')
+        print('Total invested', da_sample_size*starting_funds)
+        print('ROI:', profitability - (da_sample_size*starting_funds))
+        print('Percent ROI:', percent_ROI   )
+        print('Total return', profitability)
+        print('Bust rate:', (da_busts/da_sample_size)*100.00)
+        print('Win rate:', (da_profits/da_sample_size)*100.00)
+        print('Wager size:', wager_size)
+        print('Wager count', wager_count)
+        print('Wager size percentage:', wager_size_percentage)
+
+        saveFile = open('monteCarloLiberal.csv', 'a')
+        saveLine = '\n'+str(percent_ROI)+',',str(wager_size_percentage)+','+str(wager_count)+',r'
+        saveFile.write(saveLine)
+        saveFile.close()
