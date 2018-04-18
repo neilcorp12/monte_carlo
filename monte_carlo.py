@@ -4,14 +4,6 @@ import matplotlib
 import matplotlib.pyplot as plt
 import time
 
-lower_bust    = 31.235
-higher_profit = 63.208
-
-sample_size = 1000
-starting_funds = 10000
-wager_size = 100
-wager_count = 1000
-
 '''
 def rollDice():
     roll = random.randint(1, 100)
@@ -235,19 +227,38 @@ def simple_bettor(funds, initial_wager, wager_count, colour='k'):
         value = 0
         simple_profits += 1
 
-profitability = 0.0
-da_profits    = 0
-da_busts      = 0
-da_sample_size = 10000
+lower_bust    = 31.235
+higher_profit = 63.208
 
-counter = 1
+sample_size = 1000
+starting_funds = 10000
 
-while counter <= da_sample_size:
-    dAlembert(starting_funds, wager_size, wager_count)
-    counter += 1
+while True:
+    # wager_size = 100
+    # wager_count = 10000
 
-print('Total invested', da_sample_size*starting_funds)
-print('Total return', profitability)
-print('ROI:', profitability - (da_sample_size*starting_funds))
-print('Bust rate:', (da_busts/da_sample_size)*100.00)
-print('Win rate:', (da_profits/da_sample_size)*100.00)
+    wager_size  = random.uniform(1.0, 1000.0)
+    wager_count = random.uniform(10.0, 10000.0)
+
+    profitability = 0.0
+    da_profits    = 0
+    da_busts      = 0
+    da_sample_size = 10000
+    counter = 1
+
+    while counter <= da_sample_size:
+        dAlembert(starting_funds, wager_size, wager_count)
+        counter += 1
+
+    ROI = profitability - (da_sample_size*starting_funds)
+    total_invested = da_sample_size*starting_funds
+
+    print('##########################################')
+    print('Total invested', da_sample_size*starting_funds)
+    print('ROI:', profitability - (da_sample_size*starting_funds))
+    print('Total return', profitability)
+    print('Bust rate:', (da_busts/da_sample_size)*100.00)
+    print('Win rate:', (da_profits/da_sample_size)*100.00)
+    print('Wager size:', wager_size)
+    print('Wager count', wager_count)
+    print('Wager size percentage:', (wager_size/starting_funds)*100.00)
