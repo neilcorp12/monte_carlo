@@ -133,10 +133,6 @@ def multiple_bettor(funds, initial_wager, wager_count, colour='c'):
     if value > funds:
         multiple_profits += 1
 
-
-
-
-
 def doubler_bettor(funds, initial_wager, wager_count, colour='m'):
     value = funds
     wager = initial_wager
@@ -255,7 +251,7 @@ while True:
     percent_ROI = (ROI/total_invested)*100.00
     wager_size_percentage = (wager_size/starting_funds)*100.00
 
-    if percent_ROI > 1:
+    if percent_ROI >= 0:
         print('##########################################')
         print('Total invested', da_sample_size*starting_funds)
         print('ROI:', profitability - (da_sample_size*starting_funds))
@@ -268,11 +264,11 @@ while True:
         print('Wager size percentage:', wager_size_percentage)
 
         saveFile = open('monteCarloLiberal.csv', 'a')
-        saveLine = '\n'+str(percent_ROI)+',',str(wager_size_percentage)+','+str(wager_count)+',g'
+        saveLine = '\n'+str(percent_ROI)+','+str(wager_size_percentage)+','+str(wager_count)+',g'
         saveFile.write(saveLine)
         saveFile.close()
 
-    elif percent_ROI < -1:
+    elif percent_ROI < 0:
         print('##########################################')
         print('Total invested', da_sample_size*starting_funds)
         print('ROI:', profitability - (da_sample_size*starting_funds))
@@ -285,6 +281,6 @@ while True:
         print('Wager size percentage:', wager_size_percentage)
 
         saveFile = open('monteCarloLiberal.csv', 'a')
-        saveLine = '\n'+str(percent_ROI)+',',str(wager_size_percentage)+','+str(wager_count)+',r'
+        saveLine = '\n'+str(percent_ROI)+','+str(wager_size_percentage)+','+str(wager_count)+',r'
         saveFile.write(saveLine)
         saveFile.close()
